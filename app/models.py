@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, UniqueConstraint   
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -17,3 +17,5 @@ class Machine(Base):
     model = Column(String, nullable = False)
     location = Column(String, nullable = False)
     readings = relationship( "Reading", back_populates = "machine")
+
+    __table_args__ = (UniqueConstraint('name', 'location'),)
